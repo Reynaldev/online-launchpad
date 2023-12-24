@@ -15,10 +15,6 @@ import drum9 from './assets/audio/drum/Cev_H2.mp3';
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      displayText: ''
-    };
   
     this.playDrum = this.playDrum.bind(this);
     this.playDrumKey = this.playDrumKey.bind(this);
@@ -49,51 +45,43 @@ class App extends React.Component {
       }
   }
   setDisplayText(id) {
-    // For the sake of passed test. But it don't work.
-    let drumName = "";
-
+    // For the sake of passed test. 
+    // But it didn't work --Neither with state...---
+    
     switch (id) {
       case "Q":
-        drumName = "Heater 1";
+        document.getElementById("display").innerText = "Heater 1";
         break;
       case "W":
-        drumName = "Heater 2";
+        document.getElementById("display").innerText = "Heater 2";
         break;
       case "E":
-        drumName = "Heater 3";
+        document.getElementById("display").innerText = "Heater 3";
         break;
       case "A":
-        drumName = "Heater 4";
+        document.getElementById("display").innerText = "Heater 4";
         break;
       case "S":
-        drumName = "Clap";
+        document.getElementById("display").innerText = "Clap";
         break;
       case "D":
-        drumName = "Open HH";
+        document.getElementById("display").innerText = "Open HH";
         break;
       case "Z":
-        drumName = "Kick n' Hat";
+        document.getElementById("display").innerText = "Kick n' Hat";
         break;
       case "X":
-        drumName = "Kick";
+        document.getElementById("display").innerText = "Kick";
         break;
       case "C":
-        drumName = "Closed HH";
-        break;
-      default:
-        console.error("Invalid drum id");
-        drumName = "";
+        document.getElementById("display").innerText = "Closed HH";
         break;
     }
-
-    this.setState({
-      displayText: drumName
-    });
   }
   render() {
     return (
       <div id="drum-machine">
-        <h3 id="display">{this.state.displayText}</h3>
+        <h3 id="display"></h3>
         
         {/* 
         Don't use this, read the comment at the top of Drum.js file for more detail.
