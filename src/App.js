@@ -18,14 +18,21 @@ class App extends React.Component {
     this.playDrum = this.playDrum.bind(this);
     this.playDrumKey = this.playDrumKey.bind(this);
   }
+  componentDidMount() {
+    document.addEventListener("keydown", this.playDrumKey);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.playDrumKey);
+  }
   playDrum() {
     let childObj = document.activeElement.children.item(0);
     childObj.play();
 
     // console.log(document.activeElement.innerText);
   }
-  playDrumKey(evt) {
-    console.log(evt);
+  playDrumKey(e) {
+    const audioEl = document.getElementById(e.key.toUpperCase());
+    if (audioEl) { audioEl.play(); }
   }
   render() {
     return (
