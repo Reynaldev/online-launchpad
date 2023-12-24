@@ -1,4 +1,5 @@
 import React from 'react';
+// import Drum from './Drum';
 import './App.css';
 
 import drum1 from './assets/audio/drum/Heater-1.mp3';
@@ -14,65 +15,124 @@ import drum9 from './assets/audio/drum/Cev_H2.mp3';
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      displayText: ''
+    };
   
     this.playDrum = this.playDrum.bind(this);
     this.playDrumKey = this.playDrumKey.bind(this);
+    this.setDisplayText = this.setDisplayText.bind(this);
   }
   componentDidMount() {
-    document.addEventListener("keydown", this.playDrumKey);
+      document.addEventListener("keydown", this.playDrumKey);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.playDrumKey);
+      document.removeEventListener("keydown", this.playDrumKey);
   }
   playDrum() {
-    let childObj = document.activeElement.children.item(0);
-    childObj.play();
+      let childObj = document.activeElement.children.item(0);
+      childObj.play();
 
-    // console.log(document.activeElement.innerText);
+      this.setDisplayText(childObj.id);
+      
+      // console.log(childObj.id);
   }
   playDrumKey(e) {
-    const audioEl = document.getElementById(e.key.toUpperCase());
-    if (audioEl) { audioEl.play(); }
+      const audioEl = document.getElementById(e.key.toUpperCase());
+      if (audioEl) { 
+        audioEl.play(); 
+      
+        this.setDisplayText(audioEl.id);
+  
+        // console.log(audioEl.id);
+      }
+  }
+  setDisplayText(id) {
+    // For the sake of passed test. But it don't work.
+    let drumName = "";
+
+    switch (id) {
+      case "Q":
+        drumName = "Heater 1";
+        break;
+      case "W":
+        drumName = "Heater 2";
+        break;
+      case "E":
+        drumName = "Heater 3";
+        break;
+      case "A":
+        drumName = "Heater 4";
+        break;
+      case "S":
+        drumName = "Clap";
+        break;
+      case "D":
+        drumName = "Open HH";
+        break;
+      case "Z":
+        drumName = "Kick n' Hat";
+        break;
+      case "X":
+        drumName = "Kick";
+        break;
+      case "C":
+        drumName = "Closed HH";
+        break;
+      default:
+        console.error("Invalid drum id");
+        drumName = "";
+        break;
+    }
+
+    this.setState({
+      displayText: drumName
+    });
   }
   render() {
     return (
       <div id="drum-machine">
-        <div id="display">
-
-        </div>
-        <button id="drum1" class="drum-pad" onClick={this.playDrum}>
+        <h3 id="display">{this.state.displayText}</h3>
+        
+        {/* 
+        Don't use this, read the comment at the top of Drum.js file for more detail.
+        <Drum id="Q" name="heater1" audioSrc={drum1} /> 
+        */}
+        
+        <button id="heater1" class="drum-pad" onClick={this.playDrum}>
             Q
           <audio id="Q" class="clip" src={drum1}></audio>
         </button>
-        <button id="drum2" class="drum-pad" onClick={this.playDrum}>
+        <button id="heater2" class="drum-pad" onClick={this.playDrum}>
             W
           <audio id="W" class="clip" src={drum2}></audio>
         </button>
-        <button id="drum3" class="drum-pad" onClick={this.playDrum}>
+        <button id="heater3" class="drum-pad" onClick={this.playDrum}>
             E
           <audio id="E" class="clip" src={drum3}></audio>
         </button>
-        <button id="drum4" class="drum-pad" onClick={this.playDrum}>
+        <button id="heater4" class="drum-pad" onClick={this.playDrum}>
             A
           <audio id="A" class="clip" src={drum4}></audio>
         </button>
-        <button id="drum5" class="drum-pad" onClick={this.playDrum}>
+        <button id="heater6" class="drum-pad" onClick={this.playDrum}>
             S
           <audio id="S" class="clip" src={drum5}></audio>
         </button>
-        <button id="drum6" class="drum-pad" onClick={this.playDrum}>
+        <button id="dscoh" class="drum-pad" onClick={this.playDrum}>
             D
           <audio id="D" class="clip" src={drum6}></audio>
         </button>
-        <button id="drum7" class="drum-pad" onClick={this.playDrum}>
+        <button id="kick-n-hat" class="drum-pad" onClick={this.playDrum}>
             Z
           <audio id="Z" class="clip" src={drum7}></audio>
         </button>
-        <button id="drum8" class="drum-pad" onClick={this.playDrum}>
+        <button id="rp4-kick" class="drum-pad" onClick={this.playDrum}>
             X
           <audio id="X" class="clip" src={drum8}></audio>
         </button>
-        <button id="drum9" class="drum-pad" onClick={this.playDrum}>
+        <button id="cev-h2" class="drum-pad" onClick={this.playDrum}>
             C
           <audio id="C" class="clip" src={drum9}></audio>
         </button>
